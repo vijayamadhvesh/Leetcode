@@ -1,24 +1,19 @@
 class Solution:
     def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
-        prefix_map = {}
-        
-        # Step 1: Build the prefix map for arr1
-        for num in arr1:
-            str_num = str(num)
-            prefix = ""
-            for ch in str_num:
-                prefix += ch
-                prefix_map[prefix] = prefix_map.get(prefix, 0) + 1
-        
-        max_length = 0
-        
-        # Step 2: Check for common prefixes in arr2
-        for num in arr2:
-            str_num = str(num)
-            prefix = ""
-            for ch in str_num:
-                prefix += ch
-                if prefix in prefix_map:
-                    max_length = max(max_length, len(prefix))
-        
-        return max_length
+        # all comb of arr1
+        comb_arr1 = set()
+        for num in arr1 :
+            while num > 0 and num not in comb_arr1:
+                comb_arr1.add(num)
+                num //= 10
+        print(comb_arr1)
+        # all comb of arr2
+        ans = -1
+        for num in arr2 :
+            while num > 0 :
+                if num in comb_arr1 :
+                    ans = max(ans, num)
+                    break
+                num //= 10
+        if ans == -1 : return 0
+        else : return len(str(ans))
