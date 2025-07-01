@@ -1,7 +1,14 @@
 class Solution:
     def possibleStringCount(self, word: str) -> int:
-        res = 1
-        for i in range(1, len(word)):
-            if word[i] == word[i-1]:
-                res += 1
-        return res
+        stack = []
+
+        ans = 1 
+
+        for w in word:
+            if not stack or (stack and w==stack[-1]):
+                stack.append(w)
+            else:
+                ans+=len(stack)-1
+                stack = [w]
+        ans+=len(stack)-1
+        return ans 
