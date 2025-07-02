@@ -1,13 +1,9 @@
-from collections import Counter
-
 class Solution:
     def frequencySort(self, s: str) -> str:
-        freq = Counter(s)
+        freq_map = Counter(s)
+        sorted_chars = sorted(freq_map.items(), key=lambda x: -x[1])
 
-        sorted_chars = sorted(freq.items(), key=lambda x: x[1], reverse=True)
-
-        result = ''
-        for char, count in sorted_chars:
-            result += char * count
-
-        return result
+        res = ''
+        for char, freq in sorted_chars:
+            res += char * freq
+        return res
