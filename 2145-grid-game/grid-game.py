@@ -8,8 +8,6 @@ class Solution:
             prefix_top[i] += prefix_top[i-1]
             prefix_bottom[i] += prefix_bottom[i-1]
 
-        print(prefix_top)
-        print(prefix_bottom)
         res = float('inf')
 
         for i in range(n):
