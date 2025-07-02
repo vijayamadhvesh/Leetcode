@@ -1,18 +1,18 @@
 class Solution:
     def bestClosingTime(self, customers: str) -> int:
-        left_penalty = 0
-        right_penalty = customers.count('Y')
+        if "Y" not in customers:
+            return 0
+        if "N" not in customers:
+            return len(customers)
+        
+        profit = 0
+        maxP = 0
+        bestCT = 0
 
-        n = len(customers)
-        min_penalty = n
-        best_time = n
+        for i,v in enumerate(customers):
+            profit += 1 if v == "Y" else -1
 
-        for i in range(n+1):
-            if left_penalty + right_penalty < min_penalty:
-                min_penalty = left_penalty + right_penalty
-                best_time = i
-            if i<n and customers[i] == 'N':
-                left_penalty += 1
-            if i<n and customers[i] == 'Y':
-                right_penalty -= 1
-        return best_time
+            if profit > maxP:
+                maxP = profit
+                bestCT = i + 1
+        return bestCT
