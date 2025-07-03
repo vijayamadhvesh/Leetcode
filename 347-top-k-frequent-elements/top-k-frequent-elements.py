@@ -17,6 +17,5 @@ class Solution:
             if nums:
                 res.extend(nums)
                 k-=len(nums)
-        print(freq)
-        print(res)
+        
         return res
