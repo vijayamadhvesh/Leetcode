@@ -4,7 +4,7 @@ class Solution:
         n = len(t)
 
         for ch in s:
-            if i<n and t[i] == ch:
+            if i < n and t[i] == ch:
                 i += 1
             
         return n - i
