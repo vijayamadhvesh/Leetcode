@@ -12,6 +12,11 @@ class Solution:
             
         res = []
         for nums in freq[::-1]:
+            if k==0:
+                break
             if nums:
                 res.extend(nums)
-        return res[:k]
+                k-=len(nums)
+        print(freq)
+        print(res)
+        return res
