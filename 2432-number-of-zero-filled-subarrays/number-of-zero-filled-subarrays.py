@@ -1,16 +1,19 @@
 class Solution:
     def zeroFilledSubarray(self, nums: List[int]) -> int:
-        n = len(nums)
-        res = [0] * (n)
+        if 0 not in nums:
+            return 0
         
-        if nums[0] == 0:
-            res[0] = 1
-        
-        for i in range(1, len(nums)):
-            if nums[i] == 0:
-                res[i] += 1
+        temp = 0
+        res = 0
 
-                if nums[i-1] == 0:
-                    res[i] += res[i-1]
-        return sum(res)
+        for n in nums:
+
+            if not n:
+                temp += 1
+                res += temp
+            
+            else:
+                temp = 0
+        
+        return res
             
