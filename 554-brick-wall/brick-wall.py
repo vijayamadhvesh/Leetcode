@@ -1,17 +1,15 @@
 class Solution:
     def leastBricks(self, wall: List[List[int]]) -> int:
 
-        lseq = max(wall, key=len)
-        if len(lseq) == 1:
-            return len(wall)
+        d= defaultdict(int)
 
-        walls = Counter()
+        
+        for row in wall:
+            psum = 0
+            for i in range(len(row)-1):
+                psum += row[i]
+                d[psum] += 1
+            if psum == 0:
+                d[0] = 0
 
-        for bricks in wall:
-            total = 0
-
-            for brick in bricks[:-1]:
-                total += brick
-                walls[total] +=1
-
-        return len(wall) - max(walls.values())
+        return len(wall) - max(d.values())
