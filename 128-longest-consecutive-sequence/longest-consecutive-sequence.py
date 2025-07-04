@@ -6,7 +6,7 @@ class Solution:
         for num in numset:
             
             if num-1 not in numset:
-                length = 0
+                length = 1
                 while num+length in numset:
                     length += 1
                 longest = max(longest, length)
