@@ -1,12 +1,11 @@
 class Solution:
     def largestPerimeter(self, nums: List[int]) -> int:
             nums.sort()
-            res = -1
-            total = 0
+            total = sum(nums)
 
-            for num in nums:
-                if num < total:
-                    res = num + total
-                
-                total += num
-            return res
+            for i in range(len(nums)-1, 1, -1):
+                total -= nums[i]
+                if total > nums[i]:
+                    return total + nums[i]
+
+            return -1
