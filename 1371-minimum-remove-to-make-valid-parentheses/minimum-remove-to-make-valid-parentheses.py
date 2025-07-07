@@ -1,29 +1,27 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        res = ''
-        balanced = []
-        st = 0
-        op = []
-        string = list(s)
+        hashmap = {')': '('}
+        stack = []
+        final_list = []
+        complement = 0
 
-        for i, ch in enumerate(string):
-            if ch == ')':
-                if st==0:
-                    ch = '_'
+        for char in s:
+            if char == '(':
+                stack.append(char)
+                complement += 1
+            if char in hashmap:
+                complement -= 1
+                if stack:
+                    stack.pop()
                 else:
-                    st -= 1
-            if ch == '(':
-                op.append(['(', i])
-                st += 1
-            balanced.append(ch)
+                    continue
+                
+            final_list.append(char)
 
-        for ch, i in reversed(op):
-            if st == 0:
-                break
-            balanced[i] = '_'
-            st -= 1
+        reversed_list = final_list[::-1]
 
-        for ch in balanced:
-            if ch != '_':
-                res += ch
-        return res
+        while len(stack) > 0:
+            reversed_list.remove(stack[-1])
+            stack.pop()
+            
+        return "".join(reversed_list[::-1])
