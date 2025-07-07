@@ -1,29 +1,26 @@
 class Solution:
     def maxEvents(self, events: List[List[int]]) -> int:
         events.sort()
-        min_day = min(event[0] for event in events)
-        max_day = max(event[1] for event in events)
         
-        i = 0
-        res = 0
+        min_heap = []
+        day = 0
+        index = 0
         n = len(events)
-        heap = []
-
-        for day in range(min_day, max_day + 1):
-            # Add events starting today
-            while i < n and events[i][0] == day:
-                heapq.heappush(heap, events[i][1])
-                i += 1
-            
-            # Remove past events
-            while heap and heap[0] < day:
-                heapq.heappop(heap)
-            
-            # Attend the event that ends the earliest
-            if heap:
-                heapq.heappop(heap)
-                res += 1
+        result = 0
         
-        return res
+        while min_heap or index < n:
+            if not min_heap:
+                day = events[index][0]
+            while index < n and events[index][0] <= day:
+                heapq.heappush(min_heap, events[index][1])
+                index += 1
+            heapq.heappop(min_heap)
+            result += 1
+            day += 1
+            
+            while min_heap and min_heap[0] < day:
+                heapq.heappop(min_heap)
+        
+        return result
 
         
