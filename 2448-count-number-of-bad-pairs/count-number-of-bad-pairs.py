@@ -1,12 +1,15 @@
 class Solution:
     def countBadPairs(self, nums: List[int]) -> int:
-        freq = {}
-        good_pairs = 0
-
-        for i, num in enumerate(nums):
-            key = num - i
-            good_pairs += freq.get(key, 0)
-            freq[key] = freq.get(key, 0) + 1
-
+        good = 0
+        dict_val = {}
+        for j in range(len(nums)):
+            key = nums[j] - j
+            if key in dict_val:
+                good += dict_val[key]
+                dict_val[key] += 1
+            else:
+                dict_val[key] = 1
+        
         n = len(nums)
-        return (n * (n - 1)) // 2 - good_pairs
+        total = n * (n-1) // 2
+        return total - good
