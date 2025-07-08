@@ -1,27 +1,17 @@
 class Solution:
     def wordSubsets(self, words1: List[str], words2: List[str]) -> List[str]:
-        maxCharFreq = [0] * 26
-        tempCharFreq = [0] * 26
+        max_count = Counter()
+        for b in words2:
+            b_count = Counter(b)
+            for char in b_count:
+                max_count[char] = max(max_count[char], b_count[char])
 
-        for word in words2:
-            for ch in word:
-                tempCharFreq[ord(ch) - ord('a')] += 1
-            for i in range(26):
-                maxCharFreq[i] = max(maxCharFreq[i], tempCharFreq[i])
-            tempCharFreq = [0] * 26
-
-        universalWords = []
-
+        
+        result = []
         for word in words1:
-            for ch in word:
-                tempCharFreq[ord(ch) - ord('a')] += 1
-            isUniversal = True
-            for i in range(26):
-                if maxCharFreq[i] > tempCharFreq[i]:
-                    isUniversal = False
-                    break
-            if isUniversal:
-                universalWords.append(word)
-            tempCharFreq = [0] * 26
+            word_count = Counter(word)
+        
+            if all(word_count[char] >= max_count[char] for char in max_count):
+                result.append(word)
 
-        return universalWords
+        return result
