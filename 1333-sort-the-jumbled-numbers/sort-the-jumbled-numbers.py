@@ -1,16 +1,9 @@
 class Solution:
     def sortJumbled(self, mapping: List[int], nums: List[int]) -> List[int]:
-        d = defaultdict(list)
+        def convert(num):
 
-        res = []
-
-        for num in nums:
-            value = ''
-            for ch in str(num):
-                value += str(mapping[int(ch)])
-            value = int(value)
-            d[value].append(num)
+            result = [str(mapping[int(i)]) for i in str(num)]
             
-        for sorted_key in dict(sorted(d.items())):
-            res.extend(d[sorted_key])
-        return res
+            return int(''.join(result))
+        nums.sort(key = convert)
+        return nums
