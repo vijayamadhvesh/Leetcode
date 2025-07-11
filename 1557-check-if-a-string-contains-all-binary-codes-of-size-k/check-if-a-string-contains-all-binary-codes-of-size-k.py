@@ -1,12 +1,12 @@
 class Solution:
     def hasAllCodes(self, s: str, k: int) -> bool:
-        seen = set()
-        total = 1 << k  # This is 2^k
+        need = 1 << k
+        # 1. find all unique binary codes from s of length k
 
-        for i in range(len(s) - k + 1):
-            substring = s[i:i+k]
-            seen.add(substring)
-            if len(seen) == total:
-                return True  # Early exit
+        codeset = set()
 
-        return len(seen) == total
+        for i in range(len(s)-k + 1):
+            tmp = s[i:i+k]
+            codeset.add(tmp)
+        
+        return need == len(codeset)
