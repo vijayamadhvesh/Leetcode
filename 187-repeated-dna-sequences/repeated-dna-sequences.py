@@ -3,7 +3,7 @@ class Solution:
         seen=set()
         result=set()
     
-        for i in range(len(s)):
+        for i in range(len(s)-10+1):
         
             sub_string=s[i:i+10]
 
