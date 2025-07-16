@@ -1,17 +1,14 @@
 class Solution:
     def maximumLength(self, nums: List[int]) -> int:
-        n=len(nums)
-        odd, even, alternate=0, 0, 0
-        flag=-1
-        for i in range(n):
-            if nums[i]%2==0:
-                even+=1
-                if flag!=1:
-                    alternate+=1
-                    flag=1
+        odd_prev_p = 0
+        odd_prev_q = 0
+        even_prev_p = 0
+        even_prev_q = 0
+        for num in nums:
+            if num % 2 == 1:
+                odd_prev_p += 1
+                odd_prev_q = 1 + even_prev_q
             else:
-                odd+=1
-                if flag!=0:
-                    alternate+=1
-                    flag=0
-        return max(even, odd, alternate)
+                even_prev_p += 1
+                even_prev_q = 1 + odd_prev_q
+        return max(odd_prev_p, odd_prev_q, even_prev_p, even_prev_q)
